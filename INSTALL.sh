@@ -22,6 +22,9 @@ read -p "Install to Apache? [y/n]: " apache
 
 # Make sure you have the packages below :-
 if [ $apache == "y" ]; then
+    # So the user doesn't have to manually install
+    sudo apt-get -yqq install apache2 \
+                  libapache2-mod-php7.0
     IP=`ifconfig | sed '/inet addr:.*255.255/!d;s|.*addr:|http://|;s|\s.*||'`
     echo
     read -p "Redirect ${IP} to ${IP}/app ? [y/n]: " redirect
@@ -35,7 +38,7 @@ fi
 echo
 echo "Installing..."
 echo
-sudo apt-get install php7.0-gd php7.0-xml -y
+sudo apt-get -yqq install php7.0-gd php7.0-xml
 
 #  fix permissions ?
 sudo chown -R pi:www-data app
